@@ -6,7 +6,7 @@
 
 GtkWidget *window, *image, *button, *hbox, *vbox, *hbox1, *yes_button, *no_button; 
 int opt, t = 3000, yesno;
-char msg[128] = "\n ", img[40] = "/usr/share/pixmaps/";
+char msg[128] = "\n ", img[40] = "/usr/share/pixmaps/", *start;
 	
 static void usage(void) {
 	
@@ -129,7 +129,7 @@ int main( int argc, char *argv[])
 	int opt, t = 3000, yesno;
 	char msg[128] = "\n ", img[40] = "/usr/share/pixmaps/"; */
 	
-	while ((opt=getopt_long(argc, argv, "ehip:qs:wn:", main_options, NULL)) != -1) {
+	while ((opt=getopt_long(argc, argv, "ehiqwn:p:s:", main_options, NULL)) != -1) {
 		switch(opt) {
 			case 'i':
 				strcat(img,"info.svg");
@@ -146,7 +146,7 @@ int main( int argc, char *argv[])
 				strcat(img,optarg);
 				break;
 			case 's':
-				WaitOut (optarg);
+				start = optarg;
 				strcat(img,"wait.gif");
 				t = 0;
 				break;
@@ -175,7 +175,7 @@ int main( int argc, char *argv[])
 	
 	strcat(msg,argv[0]);
 	strcat(msg," \n");
-	
+//	if (start) WaitOut (start);
 	gtk_init(&argc, &argv);
 	if (t) g_timeout_add (t, Exit, NULL);
 	window = gtk_window_new(GTK_WINDOW_POPUP);
@@ -220,7 +220,8 @@ int main( int argc, char *argv[])
 
 	gtk_widget_show_all(window);
 	g_signal_connect(G_OBJECT(window), "destroy", G_CALLBACK(gtk_main_quit), NULL); 
-/*	window (t, img, msg); */
+//	if (start) WaitOut (start);
 	gtk_main();
+	
 	return 0;
 }

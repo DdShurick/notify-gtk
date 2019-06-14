@@ -11,8 +11,8 @@ libdir = ${prefix}/lib`uname -m|cut -b 5-`
 sysconfdir = /etc
 
 all:
-	$(CC) -o notify-gtk2 src/notify-gtk.c $(FLAGS) $(LIBS)
-
+	$(CC) -o notify-gtk2 src/notify-gtk2.c $(FLAGS) $(LIBS)
+	
 install:
 	$(INSTALL) -D -m 755 notify-gtk2 $(DESTDIR)$(bindir)/notify-gtk2
 	$(STRIP) $(DESTDIR)$(bindir)/notify-gtk2
